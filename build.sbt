@@ -56,7 +56,9 @@ lazy val dependencies = {
   )
 
   val akkaHttp = Seq(
-    "com.typesafe.akka" %% "akka-http" % "10.1.1"
+    "com.typesafe.akka" %% "akka-http" % "10.1.1",
+    "com.typesafe.akka" %% "akka-actor" % "2.5.19",
+    "com.typesafe.akka" %% "akka-stream" % "2.5.19"
   )
 
   Seq(
