@@ -18,7 +18,7 @@ trait RemoteCaller[F[_]] {
 
 object RemoteCaller {
 
-  implicit def akkaHttp[F[_]: DeferFuture: Sync: Logger](
+  def akkaHttp[F[_]: DeferFuture: Sync: Logger](
     implicit system: ActorSystem,
     ec: ExecutionContext,
     materializer: ActorMaterializer
