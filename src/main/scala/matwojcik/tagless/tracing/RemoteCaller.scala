@@ -26,9 +26,9 @@ object RemoteCaller {
 
     override def callRemote(id: Id, url: String): F[Unit] =
       for {
-        _ <- Logger[F].info(s"About to call remote, $id")
+        _ <- Logger[F].info(s"About to call $url, $id")
         _ <- doCall(id, url)
-        _ <- Logger[F].info(s"After the remote call, $id")
+        _ <- Logger[F].info(s"After the call $url, $id")
       } yield ()
 
     private def doCall(id: Id, url: String) =

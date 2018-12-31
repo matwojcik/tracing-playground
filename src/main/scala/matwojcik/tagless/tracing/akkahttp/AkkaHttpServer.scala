@@ -7,7 +7,7 @@ import akka.http.scaladsl.model.HttpEntity
 import akka.http.scaladsl.server.Directives._
 import akka.stream.Materializer
 import cats.Functor
-import cats.effect.IO
+import cats.effect.{IO, Resource}
 import cats.syntax.flatMap._
 import cats.syntax.functor._
 import io.chrisdavenport.log4cats.Logger
@@ -58,11 +58,11 @@ class AkkaHttpServer(
 
 object AkkaHttpServer {
 
-  def instance[F[_]: DeferFuture: Functor](server: AkkaHttpServer)(implicit system: ActorSystem, materializer: Materializer): HttpServer[F] =
-    new HttpServer[F] {
-      override def build: F[Unit] =
-        DeferFuture[F].defer {
-          Http().bindAndHandle(server.route, "localhost", 8080)
-        }.as(())
+  def instance[F[_]: DeferFuture: Functor](server: AkkaHttpServer)(implicit system: ActorSystem, materializer: Materializer): HttpServer[F, Http.ServerBinding] =
+    new HttpServer[F, Http.ServerBinding] {
+      override def build: Resource[F, Http.ServerBinding] = Resource.make(DeferFuture[F].defer {
+        Http().bindAndHandle(server.route, "localhost", 8080)
+      })(binding => DeferFuture[F].defer(binding.unbind()).as(()))
     }
+
 }

@@ -37,6 +37,8 @@ lazy val compilerOptions =
   )
 
 lazy val dependencies = {
+
+
   val cats = Seq(
     "org.typelevel" %% "cats-core" % "1.4.0",
     "org.typelevel" %% "cats-effect" % "1.1.0",
@@ -61,8 +63,17 @@ lazy val dependencies = {
     "com.typesafe.akka" %% "akka-stream" % "2.5.19"
   )
 
+  val http4sVersion = "0.20.0-M4"
+
+  val http4s = Seq(
+    "org.http4s" %% "http4s-dsl" % http4sVersion,
+    "org.http4s" %% "http4s-blaze-server" % http4sVersion,
+    "org.http4s" %% "http4s-blaze-client" % http4sVersion
+  )
+
+
   Seq(
-    libraryDependencies ++= cats ++ config ++ logging ++ akkaHttp
+    libraryDependencies ++= cats ++ config ++ logging ++ akkaHttp ++ http4s
   )
 }
 
