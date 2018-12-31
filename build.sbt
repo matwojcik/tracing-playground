@@ -71,9 +71,17 @@ lazy val dependencies = {
     "org.http4s" %% "http4s-blaze-client" % http4sVersion
   )
 
+  val kamon = Seq(
+    "io.kamon" %% "kamon-core" % "1.1.3",
+    "io.kamon" %% "kamon-scala-future" % "1.0.0",
+    "io.kamon" %% "kamon-logback" % "1.0.2",
+    "io.kamon" %% "kamon-akka-2.5" % "1.1.2",
+    "io.kamon" %% "kamon-akka-http-2.5" % "1.1.0",
+    "io.kamon" %% "kamon-http4s" % "1.0.11"
+  )
 
   Seq(
-    libraryDependencies ++= cats ++ config ++ logging ++ akkaHttp ++ http4s
+    libraryDependencies ++= cats ++ config ++ logging ++ akkaHttp ++ http4s ++ kamon
   )
 }
 

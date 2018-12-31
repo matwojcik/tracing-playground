@@ -4,6 +4,7 @@ import cats.effect.{ConcurrentEffect, IO, LiftIO, Resource, Sync, Timer}
 import cats.syntax.flatMap._
 import cats.syntax.functor._
 import io.chrisdavenport.log4cats.Logger
+import kamon.http4s.middleware.server.KamonSupport
 import matwojcik.tagless.tracing.HttpServer
 import matwojcik.tagless.tracing.Id
 import matwojcik.tagless.tracing.RemoteCaller
@@ -40,7 +41,7 @@ object Http4sServer {
     new HttpServer[F, Server[F]] {
       override def build: Resource[F, Server[F]] =
         BlazeServerBuilder[F].bindHttp(8080, "localhost")
-          .withHttpApp(Router("/" -> server.service).orNotFound)
+          .withHttpApp(Router("/" -> KamonSupport(server.service)).orNotFound)
           .resource
     }
 }
