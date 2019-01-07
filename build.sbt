@@ -5,7 +5,11 @@ lazy val root = (project in file("."))
     compilerOptions,
     dependencies,
     testSettings,
-  )
+  ).enablePlugins(Cinnamon)
+
+// Add the Cinnamon Agent for run and test
+cinnamon in run := true
+cinnamon in test := true
 
 lazy val commonSettings = Seq(
   name := "tracing-playground",
@@ -70,10 +74,20 @@ lazy val dependencies = {
     "org.http4s" %% "http4s-blaze-server" % http4sVersion,
     "org.http4s" %% "http4s-blaze-client" % http4sVersion
   )
+  
+  val cinnamon = Seq (
+    Cinnamon.library.cinnamonCHMetrics,
+    Cinnamon.library.cinnamonAkka,
+    Cinnamon.library.cinnamonAkkaStream,
+    Cinnamon.library.cinnamonAkkaHttp,
+    Cinnamon.library.cinnamonSlf4jMdc,
+    Cinnamon.library.cinnamonOpenTracing,
+    Cinnamon.library.cinnamonOpenTracingZipkin
+  )
 
 
   Seq(
-    libraryDependencies ++= cats ++ config ++ logging ++ akkaHttp ++ http4s
+    libraryDependencies ++= cats ++ config ++ logging ++ akkaHttp ++ http4s ++ cinnamon
   )
 }
 
