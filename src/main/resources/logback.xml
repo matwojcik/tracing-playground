@@ -4,7 +4,7 @@
 
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>%date{YYYY-MM-dd HH:mm:ss.SSS} [%level] [%mdc{X-TraceId:--}] %logger{36} [%thread] %message%n%xException</pattern>
+            <pattern>%date{YYYY-MM-dd HH:mm:ss.SSS} [%level] [%mdc{X-B3-TraceId:--}] [%mdc{X-B3-SpanId:--}] %logger{36} [%thread] %message%n%xException</pattern>
         </encoder>
     </appender>
 
