@@ -62,7 +62,7 @@ object AkkaHttpServer {
     new HttpServer[F, Http.ServerBinding] {
       override def build: Resource[F, Http.ServerBinding] = Resource.make(DeferFuture[F].defer {
         Http().bindAndHandle(server.route, "localhost", 8080)
-      })(binding => DeferFuture[F].defer(binding.unbind()).as(()))
+      })(binding => DeferFuture[F].defer(binding.unbind()).void)
     }
 
 }
